@@ -34,6 +34,7 @@ with tf.Session() as sess:
 
     for i in range(100):
         for start, end in zip(range(0, len(training_input), 128), range(128, len(training_input)+1, 128)):
+            print(start,":",end)
             sess.run(train, feed_dict={X: training_input[start:end], Y: training_output[start:end]})
         # Calculates how many of the predicted labels match the true labels, divides by number of labels(np.mean)
         print(i, np.mean(np.argmax(test_output, axis=1) == sess.run(predicted_labels, feed_dict={X: test_input})))
