@@ -1,6 +1,5 @@
 import numpy as np
 import tensorflow as tf
-import random
 from tensorflow.examples.tutorials.mnist import input_data
 
 # Fetch the test/training data from the provided tensroflow library
@@ -21,7 +20,7 @@ w_input_hidden = tf.Variable(tf.random_normal([784, 625], stddev=0.01)) # A 784x
 w_hidden_output = tf.Variable(tf.random_normal([625, 10], stddev=0.01)) # A 625x10 matrix represents the connections between the HIDDEN and the OUTPUT layer
 
 hidden_layer = tf.nn.sigmoid(tf.matmul(X, w_input_hidden)) # We create the operation-node(tf term...kind of) for calculating the hidden layer values+sigmoid
-output_layer =  tf.matmul(hidden_layer, w_hidden_output) # We create the operation-node for calculating the output layer values (no sigmoid here)
+output_layer = tf.matmul(hidden_layer, w_hidden_output) # We create the operation-node for calculating the output layer values (no sigmoid here)
 predicted_labels = tf.argmax(output_layer, 1) # Takes the biggest value from every inference. (The biggest "probability")
 
 cost_function = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(output_layer, Y)) # Calculate error using built in cross-entropy
@@ -34,7 +33,7 @@ with tf.Session() as sess:
 
     for i in range(100):
         for start, end in zip(range(0, len(training_input), 128), range(128, len(training_input)+1, 128)):
-            print(start,":",end)
+            print(start, ":", end)
             sess.run(train, feed_dict={X: training_input[start:end], Y: training_output[start:end]})
         # Calculates how many of the predicted labels match the true labels, divides by number of labels(np.mean)
         print(i, np.mean(np.argmax(test_output, axis=1) == sess.run(predicted_labels, feed_dict={X: test_input})))

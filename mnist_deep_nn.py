@@ -9,6 +9,7 @@ training_input = mnist.train.images
 test_input = mnist.test.images
 training_output = mnist.train.labels
 test_output = mnist.test.labels
+print(test_output.shape)
 
 dropout_input = tf.placeholder(tf.float32)
 dropout_hidden = tf.placeholder(tf.float32)
